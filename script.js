@@ -32,3 +32,26 @@ function createPixels() {
 }
 
 createPixels();
+
+
+// LOADING SCREEN LRV
+const pageLoader = document.getElementById("pageLoader");
+
+function hidePageLoader() {
+    if (!pageLoader) return;
+
+    pageLoader.classList.add("is-hidden");
+}
+
+if (pageLoader) {
+    if (document.readyState === "complete") {
+        hidePageLoader();
+    } else {
+        window.addEventListener("load", hidePageLoader, {
+            once: true
+        });
+
+        // Pengaman agar loading tidak menetap selamanya.
+        window.setTimeout(hidePageLoader, 4000);
+    }
+}

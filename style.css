@@ -29,13 +29,18 @@ a {
     text-decoration: none;
 }
 
+/* HEADER */
+
 .navbar {
+    position: relative;
+    z-index: 5;
     min-height: 78px;
     padding: 0 7%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--line);
+    background: var(--bg);
 }
 
 .logo {
@@ -44,40 +49,48 @@ a {
     letter-spacing: -2px;
 }
 
+/* HERO */
+
 .hero {
     position: relative;
     isolation: isolate;
     overflow: hidden;
+    min-height: calc(100vh - 78px);
     min-height: calc(100svh - 78px);
     padding: 90px 10%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    background: var(--bg);
 }
+
+/* PIXEL ANIMATION */
 
 .pixel-field {
     position: absolute;
     inset: 0;
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
     overflow: hidden;
 }
 
 .pixel {
     position: absolute;
+    display: block;
     width: clamp(8px, 1.3vw, 17px);
     aspect-ratio: 1;
-    background: #111;
+    background: #111111;
     opacity: 0;
     animation: pixelBlink 5s ease-in-out infinite;
     animation-delay: var(--delay);
+    will-change: opacity, transform;
 }
 
 @keyframes pixelBlink {
     0%, 100% {
         opacity: 0;
-        transform: scale(.4);
+        transform: scale(0.4);
     }
 
     35%, 65% {
@@ -86,18 +99,24 @@ a {
     }
 }
 
+/* HERO CONTENT */
+
+.hero > *:not(.pixel-field) {
+    position: relative;
+    z-index: 1;
+}
+
 .eyebrow {
     color: var(--muted);
-    font-size: .7rem;
+    font-size: 0.7rem;
     letter-spacing: 2px;
 }
 
 .hero h1 {
-    position: relative;
     margin-top: 30px;
     font-size: clamp(3.5rem, 9vw, 8rem);
-    line-height: .95;
-    letter-spacing: -.085em;
+    line-height: 0.95;
+    letter-spacing: -0.085em;
     font-weight: 900;
 }
 
@@ -110,8 +129,10 @@ a {
     max-width: 420px;
     margin-top: 30px;
     color: #55554f;
-    font-size: .95rem;
+    font-size: 0.95rem;
 }
+
+/* BUTTON */
 
 .button {
     display: inline-flex;
@@ -123,20 +144,24 @@ a {
     color: white;
     border: 1px solid var(--text);
     font: inherit;
-    font-size: .85rem;
+    font-size: 0.85rem;
 }
 
 .login-button:disabled {
-    opacity: .65;
+    opacity: 0.65;
     cursor: not-allowed;
 }
+
+/* FOOTER TEXT */
 
 .version {
     margin-top: 55px;
     color: var(--muted);
-    font-size: .65rem;
+    font-size: 0.65rem;
     letter-spacing: 1.5px;
 }
+
+/* MOBILE */
 
 @media (max-width: 600px) {
     .navbar {
@@ -144,6 +169,7 @@ a {
     }
 
     .hero {
+        min-height: calc(100vh - 78px);
         min-height: calc(100svh - 78px);
         padding: 70px 7%;
     }
@@ -155,7 +181,13 @@ a {
     .hero-text {
         max-width: 340px;
     }
+
+    .pixel {
+        width: 10px;
+    }
 }
+
+/* ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
     *,
